@@ -1,0 +1,298 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/api/v1/notifications": {
+      "get": {
+        "summary": "List all notifications",
+        "description": "Returns list of all notifications",
+        "operationId": "listNotifications",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/SuccessResponseStatus"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Notification"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/unread": {
+      "get": {
+        "summary": "List all unread notifications",
+        "description": "Returns list of all unread notifications",
+        "operationId": "listUnreadNotifications",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/SuccessResponseStatus"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/Notification"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/unread/count": {
+      "get": {
+        "summary": "Count all unread notifications",
+        "description": "Returns number of all unread notifications",
+        "operationId": "CountUnreadNotifications",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/SuccessResponseStatus"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number",
+                      "description": "The number of all unread notifications"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/read/all": {
+      "put": {
+        "summary": "Mark all unread notifications as read",
+        "description": "Returns number of all unread notifications marked as read",
+        "operationId": "MarkAllUnreadNotificationsAsRead",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/SuccessResponseStatus"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "number",
+                      "description": "The number of all unread notifications marked as read"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/read/{id}": {
+      "put": {
+        "summary": "Mark one unread notification as read",
+        "description": "Returns marked notification",
+        "operationId": "MarkOneUnreadAsReadById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The id of the notifcation to be marked as read"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/SuccessResponseStatus"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "notification": {
+                      "$ref": "#/definitions/Notification"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/notifications/{id}": {
+      "get": {
+        "summary": "Fetch notification by Id",
+        "description": "Returns a notification",
+        "operationId": "FindById",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The id of the notifcation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "$ref": "#/definitions/SuccessResponseStatus"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "notification": {
+                      "$ref": "#/definitions/Notification"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorResponse": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "error"
+        },
+        "message":{
+          "type": "string"
+        }
+      }
+    },
+    "SuccessResponseStatus": {
+      "type": "string",
+      "example": "success"
+    },
+    "Notification": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id of the notification"
+        },
+        "message": {
+          "type": "string",
+          "description": "The message of the notification"
+        },
+        "read": {
+          "type": "boolean",
+          "descritpion": "The read status of the message"
+        }
+      }
+    }
+  }
+}
